@@ -3,8 +3,9 @@ import logging
 import os
 import sys
 import json
-
+import urllib.parse
 import requests
+
 import furl
 from flask import Flask, Response, request
 from dotenv import load_dotenv
@@ -19,7 +20,9 @@ load_dotenv('../.env')
 
 # Get environment variables
 env = {}
-for key in ('WEBSITE_SEARCHER_URL', 'WEBSITE_SEARCHER_API_KEY', 'WEBSITE_SEARCHER_ENGINE_ID', ):
+for key in ('WEBSITE_SEARCHER_URL', 'WEBSITE_SEARCHER_API_KEY',
+            'WEBSITE_SEARCHER_ENGINE_ID', 'WEBSITE_SEARCHER_NO_RESULTS_LINK',
+            'WEBSITE_SEARCHER_MODULE_LINK'):
     env[key] = os.environ.get(key)
     if env[key] is None:
         raise RuntimeError(f'Must provide environment variable: {key}')
@@ -27,9 +30,10 @@ for key in ('WEBSITE_SEARCHER_URL', 'WEBSITE_SEARCHER_API_KEY', 'WEBSITE_SEARCHE
 search_url = furl.furl(env['WEBSITE_SEARCHER_URL'])
 api_key = env['WEBSITE_SEARCHER_API_KEY']
 engine_id = env['WEBSITE_SEARCHER_ENGINE_ID']
+no_results_link = env['WEBSITE_SEARCHER_NO_RESULTS_LINK']
+module_link = env['WEBSITE_SEARCHER_MODULE_LINK']
+
 debug = os.environ.get('FLASK_ENV') == 'development'
-
-
 
 logger = logging.getLogger('sitemap')
 
@@ -47,9 +51,9 @@ else:
 
 logger.info("Starting the website-searcher Flask application")
 
-page=1
-per_page=3
-endpoint='website-search'
+page = 1
+per_page = 3
+endpoint = 'website-search'
 
 
 # Start the flask app, with compression enabled
@@ -82,11 +86,11 @@ def search():
 
     # Execute the Google search
     params = {
-        'q': query, # query
+        'q': query,  # query
         'key': api_key,
         'cx': engine_id,
-        'num': per_page, # number of results per page
-        'start': page, # return results starting at this page
+        'num': per_page,  # number of results per page
+        'start': page,  # return results starting at this page
     }
 
     response = requests.get(search_url.url, params=params)
@@ -101,8 +105,9 @@ def search():
         "per_page": str(per_page),
         "page": str(page),
         "total": int(data['searchInformation']['totalResults']),
-        "module_link": "",
-        "no_results_link": "",
+        "module_link": module_link.replace('{query}',
+                                           urllib.parse.quote_plus(query)),
+        "no_results_link": no_results_link,
         "results": results
     }
 
