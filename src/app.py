@@ -9,6 +9,7 @@ import requests
 import furl
 from flask import Flask, Response, request
 from dotenv import load_dotenv
+from waitress import serve
 
 # Searcher to search Google Programmable Search Engine and return results
 # in the Quick Search format.
@@ -153,4 +154,9 @@ if __name__ == '__main__':
     # This code is not reached when running "flask run". However the Docker
     # container runs "python app.py" and host='0.0.0.0' is set to ensure
     # that flask listens on port 5000 on all interfaces.
-    app.run(host='0.0.0.0')
+
+    # Run Flask built-in server
+    # app.run(host='0.0.0.0')
+
+    # Run waitress WSGI server
+    serve(app, host='0.0.0.0', port=5000)
