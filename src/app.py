@@ -94,7 +94,27 @@ def search():
         'start': page,  # return results starting at this page
     }
 
-    response = requests.get(search_url.url, params=params)
+    try:
+        response = requests.get(search_url.url, params=params)
+    except Exception as err:
+        logger.error(f'Error submitting search: {err}')
+
+        return {
+            'endpoint': endpoint,
+            'error': {
+                'msg': f'Error submitting search',
+            },
+        }, 500
+
+    if response.status_code != 200:
+        logger.error(f'Received {response.status_code} when submitted {query=}')
+
+        return {
+            'endpoint': endpoint,
+            'error': {
+                'msg': f'Received {response.status_code} when submitted {query=}',
+            },
+        }, 500
 
     data = json.loads(response.text)
 
