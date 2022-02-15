@@ -35,7 +35,7 @@ module_link = env['WEBSITE_SEARCHER_MODULE_LINK']
 
 debug = os.environ.get('FLASK_ENV') == 'development'
 
-logger = logging.getLogger('sitemap')
+logger = logging.getLogger('website-searcher')
 
 logger.addHandler(logging.StreamHandler())
 if debug:
@@ -115,9 +115,10 @@ def search():
     if 'items' in data:
         for item in data['items']:
             results.append({
-                'title': item['title'],
+                'title': item['title'].replace(' | UMD Libraries',''),
                 'link': item['formattedUrl'],
-                'format': 'webpage',
+                'description': item['snippet'],
+                'format': 'web_page',
                 'extra': {
                     'displayLink': item['displayLink'],
                     'snippet': item['snippet'],
