@@ -10,6 +10,7 @@ import furl
 from flask import Flask, Response, request
 from dotenv import load_dotenv
 from waitress import serve
+from paste.translogger import TransLogger
 
 # Searcher to search Google Programmable Search Engine and return results
 # in the Quick Search format.
@@ -36,10 +37,13 @@ module_link = env['WEBSITE_SEARCHER_MODULE_LINK']
 
 debug = os.environ.get('FLASK_ENV') == 'development'
 
+logging.root.addHandler(logging.StreamHandler())
+
+loggerWaitress = logging.getLogger('waitress')
 logger = logging.getLogger('website-searcher')
 
-logger.addHandler(logging.StreamHandler())
 if debug:
+    loggerWaitress.setLevel(logging.DEBUG)
     logger.setLevel(logging.DEBUG)
 
     # from http.client import HTTPConnection
@@ -48,6 +52,7 @@ if debug:
     # requests_log.setLevel(logging.DEBUG)
     # requests_log.propagate = True
 else:
+    loggerWaitress.setLevel(logging.INFO)
     logger.setLevel(logging.INFO)
 
 logger.info("Starting the website-searcher Flask application")
@@ -159,4 +164,5 @@ if __name__ == '__main__':
     # app.run(host='0.0.0.0')
 
     # Run waitress WSGI server
-    serve(app, host='0.0.0.0', port=5000)
+    serve(TransLogger(app, setup_console_handler=True),
+          host='0.0.0.0', port=5000, threads=10)
