@@ -50,45 +50,49 @@ Example:
 curl 'http://localhost:5000/search?q=jstor'
 {
   "endpoint": "website-search",
-  "module_link": "",
-  "no_results_link": "",
+  "module_link": "https://search.lib.umd.edu/website?query=jstor",
+  "no_results_link": "https://search.lib.umd.edu/website",
   "page": "1",
   "per_page": "3",
   "query": "jstor",
   "results": [
     {
+      "description": "Sep 14, 2017 ... JSTOR Retention Policy | JSTOR is an electronic archive of core journals in the humanities, social sciences, and sciences.",
       "extra": {
         "displayLink": "www.lib.umd.edu",
         "htmlSnippet": "Sep 14, 2017 <b>...</b> <b>JSTOR</b> Retention Policy | <b>JSTOR</b> is an electronic archive of core journals in the humanities, social sciences, and sciences.",
         "snippet": "Sep 14, 2017 ... JSTOR Retention Policy | JSTOR is an electronic archive of core journals in the humanities, social sciences, and sciences."
       },
-      "format": "webpage",
+      "format": "web_page",
       "link": "https://www.lib.umd.edu/collections/policies/jstor-retention-policy",
-      "title": "JSTOR Retention Policy - Collections | UMD Libraries"
+      "title": "JSTOR Retention Policy - Collections"
     },
     {
+      "description": "As the largest university library system in the Washington D.C.-Baltimore area, the University Libraries serve 37000 students and faculty of the flagship ...",
       "extra": {
         "displayLink": "www.lib.umd.edu",
         "htmlSnippet": "As the largest university library system in the Washington D.C.-Baltimore area, the University Libraries serve 37000 students and faculty of the flagship&nbsp;...",
-        "snippet": "As the largest university library system in the Washington D.C.-Baltimore area, the University Libraries serve 37000 students and faculty of the flagship\u00a0..."
+        "snippet": "As the largest university library system in the Washington D.C.-Baltimore area, the University Libraries serve 37000 students and faculty of the flagship ..."
       },
-      "format": "webpage",
+      "format": "web_page",
       "link": "https://www.lib.umd.edu/",
       "title": "University of Maryland Libraries"
     },
     {
+      "description": "Ask Us! Directions · Hours · Jobs · Phone Numbers · Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405- ...",
       "extra": {
         "displayLink": "www.lib.umd.edu",
         "htmlSnippet": "Ask Us! Directions &middot; Hours &middot; Jobs &middot; Phone Numbers &middot; Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405-&nbsp;...",
-        "snippet": "Ask Us! Directions \u00b7 Hours \u00b7 Jobs \u00b7 Phone Numbers \u00b7 Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405-\u00a0..."
+        "snippet": "Ask Us! Directions · Hours · Jobs · Phone Numbers · Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405- ..."
       },
-      "format": "webpage",
+      "format": "web_page",
       "link": "https://www.lib.umd.edu/alumniandfriends",
-      "title": "Alumni and Friends | UMD Libraries"
+      "title": "Alumni and Friends"
     }
   ],
-  "total": 623
+  "total": 880
 }
+
 ```
 
 [Flask's debug mode]: https://flask.palletsprojects.com/en/2.0.x/quickstart/#debug-mode
