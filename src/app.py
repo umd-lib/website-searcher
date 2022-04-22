@@ -57,8 +57,6 @@ else:
 
 logger.info("Starting the website-searcher Flask application")
 
-page = 1
-per_page = 3
 endpoint = 'website-search'
 
 
@@ -91,13 +89,24 @@ def search():
         }, 400
     query = args['q']
 
+    per_page = 3
+    if 'per_page' in args and args['per_page'] != "":
+    	per_page = args['per_page']
+
+    page = 0
+    start_index = 1
+    if 'page' in args and args['page'] != "" and args['page'] != "%":
+    	page = args['page']
+
+    start_index = int(page) * int(per_page)
+
     # Execute the Google search
     params = {
         'q': query,  # query
         'key': api_key,
         'cx': engine_id,
         'num': per_page,  # number of results per page
-        'start': page,  # return results starting at this page
+        'start': start_index,  # return results starting at this page
     }
 
     try:
@@ -144,7 +153,7 @@ def search():
                 'title': item['title'].replace(' | UMD Libraries',''),
                 'link': item['formattedUrl'],
                 'description': item['snippet'],
-                'format': 'web_page',
+                'item_format': 'web_page',
                 'extra': {
                     'displayLink': item['displayLink'],
                     'snippet': item['snippet'],
