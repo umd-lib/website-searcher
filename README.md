@@ -42,17 +42,17 @@ Root endpoint (just returns `{status: ok}` to all requests):
 /ping endpoint (just returns `{status: ok}` to all requests):
 <http://localhost:5000/ping>
 
-/search endpoint: <http://localhost:5000/search?q={query}>
+/search endpoint: `http://localhost:5000/search?q={query}&page={page number?}&per_page={results per page?}`
 
 Example:
 
 ```bash
-curl 'http://localhost:5000/search?q=jstor'
+curl 'http://localhost:5000/search?q=jstor&per_page=3&page=0'
 {
   "endpoint": "website-search",
   "module_link": "https://search.lib.umd.edu/website?query=jstor",
   "no_results_link": "https://search.lib.umd.edu/website",
-  "page": "1",
+  "page": "0",
   "per_page": "3",
   "query": "jstor",
   "results": [
@@ -63,7 +63,7 @@ curl 'http://localhost:5000/search?q=jstor'
         "htmlSnippet": "Sep 14, 2017 <b>...</b> <b>JSTOR</b> Retention Policy | <b>JSTOR</b> is an electronic archive of core journals in the humanities, social sciences, and sciences.",
         "snippet": "Sep 14, 2017 ... JSTOR Retention Policy | JSTOR is an electronic archive of core journals in the humanities, social sciences, and sciences."
       },
-      "format": "web_page",
+      "item_format": "web_page",
       "link": "https://www.lib.umd.edu/collections/policies/jstor-retention-policy",
       "title": "JSTOR Retention Policy - Collections"
     },
@@ -74,23 +74,23 @@ curl 'http://localhost:5000/search?q=jstor'
         "htmlSnippet": "As the largest university library system in the Washington D.C.-Baltimore area, the University Libraries serve 37000 students and faculty of the flagship&nbsp;...",
         "snippet": "As the largest university library system in the Washington D.C.-Baltimore area, the University Libraries serve 37000 students and faculty of the flagship ..."
       },
-      "format": "web_page",
+      "item_format": "web_page",
       "link": "https://www.lib.umd.edu/",
       "title": "University of Maryland Libraries"
     },
     {
-      "description": "Ask Us! Directions · Hours · Jobs · Phone Numbers · Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405- ...",
+      "description": "Oct 7, 2021 ... Remote access to library resources is available for all current University of Maryland, College Park students, faculty, and staff. Database ...",
       "extra": {
         "displayLink": "www.lib.umd.edu",
-        "htmlSnippet": "Ask Us! Directions &middot; Hours &middot; Jobs &middot; Phone Numbers &middot; Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405-&nbsp;...",
-        "snippet": "Ask Us! Directions · Hours · Jobs · Phone Numbers · Suggestions. Address: McKeldin Library, 7649 Library Lane, College Park, MD 20742-7011. Phone: (301) 405- ..."
+        "htmlSnippet": "Oct 7, 2021 <b>...</b> Remote access to library resources is available for all current University of Maryland, College Park students, faculty, and staff. Database&nbsp;...",
+        "snippet": "Oct 7, 2021 ... Remote access to library resources is available for all current University of Maryland, College Park students, faculty, and staff. Database ..."
       },
-      "format": "web_page",
-      "link": "https://www.lib.umd.edu/alumniandfriends",
-      "title": "Alumni and Friends"
+      "item_format": "web_page",
+      "link": "https://www.lib.umd.edu/services/remote-access",
+      "title": "How do I Connect to Electronic Resources Off-Campus? | UMD ..."
     }
   ],
-  "total": 880
+  "total": 854
 }
 
 ```
