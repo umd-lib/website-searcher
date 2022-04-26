@@ -172,9 +172,6 @@ if __name__ == '__main__':
     # container runs "python app.py" and host='0.0.0.0' is set to ensure
     # that flask listens on port 5000 on all interfaces.
 
-    # Run Flask built-in server
-    # app.run(host='0.0.0.0')
-
     # Run waitress WSGI server
     serve(TransLogger(app, setup_console_handler=True),
           host='0.0.0.0', port=5000, threads=10)
