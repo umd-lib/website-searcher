@@ -111,7 +111,7 @@ def search():
     try:
         response = requests.get(search_url.url, params=params)
     except Exception as err:
-        logger.error(f'Error submitting search: {err}')
+        logger.error(f'Error submitting search url={search_url.url}, params={params}\n{err}')
 
         return {
             'endpoint': endpoint,
@@ -129,6 +129,10 @@ def search():
                 'msg': f'Received {response.status_code} when submitted {query=}',
             },
         }, 500
+
+    logger.debug(f'Submitted url={search_url.url}, params={params}')
+    logger.debug(f'Received response {response.status_code}')
+    logger.debug(response.text)
 
     data = json.loads(response.text)
 
