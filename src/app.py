@@ -94,19 +94,18 @@ def search():
     	per_page = args['per_page']
 
     page = 0
-    start_index = 1
     if 'page' in args and args['page'] != "" and args['page'] != "%":
     	page = args['page']
 
-    start_index = int(page) * int(per_page)
+    start_index = 1 + int(page) * int(per_page)
 
     # Execute the Google search
     params = {
         'q': query,  # query
         'key': api_key,
         'cx': engine_id,
-        'num': per_page,  # number of results per page
-        'start': start_index,  # return results starting at this page
+        'num': per_page,  # number of results
+        'start': start_index,  # starting at this result (1 is the first result)
     }
 
     try:
