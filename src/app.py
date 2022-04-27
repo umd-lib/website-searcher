@@ -94,25 +94,24 @@ def search():
     	per_page = args['per_page']
 
     page = 0
-    start_index = 1
     if 'page' in args and args['page'] != "" and args['page'] != "%":
     	page = args['page']
 
-    start_index = int(page) * int(per_page)
+    start_index = 1 + int(page) * int(per_page)
 
     # Execute the Google search
     params = {
         'q': query,  # query
         'key': api_key,
         'cx': engine_id,
-        'num': per_page,  # number of results per page
-        'start': start_index,  # return results starting at this page
+        'num': per_page,  # number of results
+        'start': start_index,  # starting at this result (1 is the first result)
     }
 
     try:
         response = requests.get(search_url.url, params=params)
     except Exception as err:
-        logger.error(f'Error submitting search: {err}')
+        logger.error(f'Error submitting search url={search_url.url}, params={params}\n{err}')
 
         return {
             'endpoint': endpoint,
@@ -130,6 +129,10 @@ def search():
                 'msg': f'Received {response.status_code} when submitted {query=}',
             },
         }, 500
+
+    logger.debug(f'Submitted url={search_url.url}, params={params}')
+    logger.debug(f'Received response {response.status_code}')
+    logger.debug(response.text)
 
     data = json.loads(response.text)
 
@@ -168,9 +171,6 @@ if __name__ == '__main__':
     # This code is not reached when running "flask run". However the Docker
     # container runs "python app.py" and host='0.0.0.0' is set to ensure
     # that flask listens on port 5000 on all interfaces.
-
-    # Run Flask built-in server
-    # app.run(host='0.0.0.0')
 
     # Run waitress WSGI server
     serve(TransLogger(app, setup_console_handler=True),
