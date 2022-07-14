@@ -154,7 +154,7 @@ def search():
         for item in data['items']:
             results.append({
                 'title': item['title'].replace(' | UMD Libraries',''),
-                'link': item['formattedUrl'],
+                'link': item['link'],
                 'description': item['snippet'],
                 'item_format': 'web_page',
                 'extra': {
