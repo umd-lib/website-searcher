@@ -5,30 +5,23 @@ which expects a REST interface following the Quick Search model.
 
 ## Requires
 
-* Python 3
+* Python 3.10.8
 
-## Running the Webapp
+### Development Setup
 
-```bash
-# create a .env file (then manually update environment variables)
-$ cp .env-template .env
-```
-
-### Running locally
-
-```bash
-# install requirements
-$ pip install -r requirements.txt
-
-# run the app with Flask
-$ flask run
-```
+See [docs/DevelopmentSetup.md](docs/DevelopmentSetup.md).
 
 ### Running in Docker
 
 ```bash
 $ docker build -t website-searcher .
 $ docker run -it --rm -p 5000:5000 --env-file=.env --read-only website-searcher
+```
+
+### Building for Kubernetes
+
+```bash
+$ docker buildx build . --builder=kube -t docker.lib.umd.edu/website-searcher:VERSION --push
 ```
 
 ### Endpoints
@@ -95,7 +88,7 @@ curl 'http://localhost:5000/search?q=jstor&per_page=3&page=0'
 
 ```
 
-[Flask's debug mode]: https://flask.palletsprojects.com/en/2.0.x/quickstart/#debug-mode
+[Flask's debug mode]: https://flask.palletsprojects.com/en/2.2.x/cli/?highlight=debug%20mode
 
 ## License
 
