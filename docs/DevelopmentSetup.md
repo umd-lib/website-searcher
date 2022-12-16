@@ -12,8 +12,8 @@ installed to enable the setup of an isolated Python environment.
 
 See the following for setup instructions:
 
-* https://github.com/pyenv/pyenv
-* https://github.com/pyenv/pyenv-virtualenv
+* <https://github.com/pyenv/pyenv>
+* <https://github.com/pyenv/pyenv-virtualenv>
 
 Once "pyenv" and "pyenv-virtualenv" have been installed, install Python 3.10.8
 
